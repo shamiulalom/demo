@@ -28,13 +28,14 @@
 			width: 100%;
 		}
 		#output, #winnerOutput {
-			border-radius: 20px;
-			padding: 10px;
-			margin-top: 20px;
-			background-color: #cc2b5e;
-			text-align: center;
-			background-image: none;
-		}
+  display: none;
+  border-radius: 20px;
+  padding: 10px;
+  margin-top: 20px;
+  text-align: center;
+  /* the rest of the styles */
+}
+
 		#output p, #winnerOutput p {
 			margin: 10px;
 			font-size: 16px;
@@ -56,21 +57,19 @@
 		const contractAbi = [{"inputs":[],"name":"_jackpotRound","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"lotoNumber","type":"uint256"}],"name":"lotteryWinnerInfo","outputs":[{"components":[{"internalType":"uint256","name":"randomNumber","type":"uint256"},{"internalType":"address","name":"wallet","type":"address"},{"internalType":"uint256","name":"prizeAmount","type":"uint256"},{"internalType":"bool","name":"chainlink","type":"bool"}],"internalType":"struct JackpotProtocol._winnerInfoStruct","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"}];
 		const contract = new ethers.Contract(contractAddress, contractAbi, provider);
 		async function getJackpotRound() {
-			const jackpotRound = await contract._jackpotRound();
-			document.getElementById("output").innerHTML = "<p>Jackpot Round: " + jackpotRound.toString() + "</p>";
+  const jackpotRound = await contract._jackpotRound();
+  document.getElementById("output").innerHTML = "<p>Jackpot Round: " + jackpotRound.toString() + "</p>";
+  document.getElementById("output").style.display = "block";
+}
 
-			document.getElementById("output").style.display = "block";
-		}
+async function getWinnerInfo() {
+  const round = document.getElementById("round").value;
+  const winnerInfo = await contract.lotteryWinnerInfo(round);
+  const prizeAmount = (winnerInfo.prizeAmount / 1e18).toFixed(5);
+  document.getElementById("winnerOutput").innerHTML = "<p>Win By Random Number: " + winnerInfo.randomNumber.toString() + "</p><p>Wallet Address: " + winnerInfo.wallet + "</p><p>Prize Amount: " + prizeAmount + " ETH</p>";
+  document.getElementById("winnerOutput").style.display = "block";
+}
 
-		async function getWinnerInfo() {
-			const round = document.getElementById("round").value;
-			const winnerInfo = await contract.lotteryWinnerInfo(round);
-	const prizeAmount = (winnerInfo.prizeAmount / 1e18).toFixed(5);
-document.getElementById("winnerOutput").innerHTML = "<p>Win By Random Number: " + winnerInfo.randomNumber.toString() + "</p><p>Wallet Address: " + winnerInfo.wallet + "</p><p>Prize Amount: " + prizeAmount + " ETH</p>";
-
-		
-            document.getElementById("winnerOutput").style.display = "block";
-		}
 	</script>
 </body>
 </html>
