@@ -5,41 +5,51 @@
 	<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
 		<style>
 		body {
-			background-color: #5f2c82;
-			color: #fff;
-		}
-		h1 {
-			text-align: center;
-		}
-		button {
-			background-color: #cc2b5e;
-			color: #fff;
-			padding: 10px 20px;
-			border: none;
-			border-radius: 20px;
-			font-size: 18px;
-			cursor: pointer;
-		}
-		input[type="text"] {
-			padding: 10px;
-			border: none;
-			border-radius: 20px;
-			margin: 10px 0;
-			width: 100%;
-		}
-		#output, #winnerOutput {
-  display: none;
-  border-radius: 20px;
-  padding: 10px;
-  margin-top: 20px;
-  text-align: center;
-  /* the rest of the styles */
+    background-color: #5f2c82;
+    color: #fff;
 }
 
-		#output p, #winnerOutput p {
-			margin: 10px;
-			font-size: 16px;
-		}
+h1 {
+    text-align: center;
+}
+
+button {
+    background-color: #cc2b5e;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    margin: 10px 0;
+    width: 100%;
+}
+
+#output, #winnerOutput {
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 20px;
+    text-align: center;
+    background: none;
+    background-image: linear-gradient(to bottom right, #cc2b5e, #5f2c82);
+    background-size: 100%;
+    transition: background-size 0.5s ease;
+}
+
+#output.show, #winnerOutput.show {
+    background-size: 400%;
+}
+
+#output p, #winnerOutput p {
+    margin: 10px;
+    font-size: 16px;
+}
 	</style>
 </head>
 <body>
